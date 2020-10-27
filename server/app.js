@@ -37,11 +37,11 @@ var serverRenderer = function (req, res, next) {
 		);
 	});
 };
-readFile(path.resolve("../build/index.html"), "utf8").then(function (data) {
+readFile(path.resolve("./build/index.html"), "utf8").then(function (data) {
 	dom = data;
 	app.use(cookieParser());
-	app.use("/assets", express.static(path.resolve("../build/assets")));
-	app.use("/static", express.static(path.resolve("../build/static")));
+	app.use("/assets", express.static(path.resolve("./build/assets")));
+	app.use("/static", express.static(path.resolve("./build/static")));
 
 	app.route("/*").get(serverRenderer);
 	app.listen(PORT, () => {
