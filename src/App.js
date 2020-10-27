@@ -4,8 +4,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom"
 import Main from "~/Views/Main";
 import store from '~/redux/store'
 
-import "./App.scss"
-
 export default function App() {
 	return (
 		<Provider store={store} >

@@ -26,8 +26,6 @@ export default function Main() {
 		successfulLand: landing_success,
 	});
 
-	console.log(selectedFilters)
-
 	useEffect(() => {
 		dispatch(
 			fetchLaunchPrograms({
