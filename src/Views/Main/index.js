@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Header from "~/Modules/Header";
+import Filter from "~/Modules/Filter";
+import ProgramList from "~/Modules/ProgramList";
+import Footer from "~/Modules/Footer";
 import { fetchLaunchPrograms } from "~/redux/actions/launchPrograms";
 
 import "./styles.scss";
@@ -8,8 +12,26 @@ import "./styles.scss";
 export default function Main() {
 	const launchYearFilters = []
 	for (let year = 2006; year <= 2020 ; year++) {
-		launchYearFilters.push(year);
+		launchYearFilters.push({
+			label: year,
+			value: year
+		});
 	}
+	const successfulLaunchFilters = [{
+		label: "True",
+		value: "true"
+	},{
+		label: "False",
+		value: "false"
+		}]
+	
+	const successfulLandFilters = [{
+		label: "True",
+		value: "true"
+	},{
+		label: "False",
+		value: "false"
+	}]
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const launchPrograms = useSelector((state) => state.launchPrograms);
@@ -48,217 +70,76 @@ export default function Main() {
 		if (selectedFilters.successfulLand) {
 			params.push(`landing_success=${selectedFilters.successfulLand}`);
 		}
-		console.log(params);
 		if (params.length > 0) {
 			history.push(`/?${params.join("&")}`);
+		} else {
+			history.push(`/`);
+
 		}
 	}, [selectedFilters]);
 	
 	return (
-		<div className="main">
-			<div className="page-header">
-				<h1>SpaceX Launch Programs</h1>
-			</div>
+		<main className="main">
+			<Header />
 			<div className="content">
 				<div className="filters-container card">
 					<h3>Filters</h3>
 					<div className="filter-title">Launch Year</div>
-					<div className="filter-list">
-						{launchYearFilters.map((year, index) => (
-							<div
-								key={`filter-launch-year-${index}`}
-								className={`filter-item ${
-									selectedFilters.launchYear === year
-										? "active"
-										: ""
-								}`}
-								onClick={(e) =>
-									setSelectedFilters({
-										...selectedFilters,
-										launchYear:
-											selectedFilters.launchYear === year
-												? ""
-												: year,
-									})
-								}
-							>
-								{year}
-							</div>
-						))}
-					</div>
+					<Filter
+						filterItems={launchYearFilters}
+						selectedFilters={launchYearFilters.filter(
+							(item) => item.value === selectedFilters.launchYear
+						)}
+						onChange={(selectedItem) =>
+							setSelectedFilters({
+								...selectedFilters,
+								launchYear: selectedItem[0]
+									? selectedItem[0].value
+									: null,
+							})
+						}
+					/>
 
 					<div className="filter-title">Successful Launch</div>
-					<div className="filter-list">
-						<div
-							className={`filter-item ${
-								selectedFilters.successfulLaunch === "true"
-									? "active"
-									: ""
-							}`}
-							onClick={(e) =>
-								setSelectedFilters({
-									...selectedFilters,
-									successfulLaunch:
-										selectedFilters.successfulLaunch ===
-										"true"
-											? ""
-											: "true",
-								})
-							}
-						>
-							True
-						</div>
-						<div
-							className={`filter-item ${
-								selectedFilters.successfulLaunch === "false"
-									? "active"
-									: ""
-							}`}
-							onClick={(e) =>
-								setSelectedFilters({
-									...selectedFilters,
-									successfulLaunch:
-										selectedFilters.successfulLaunch ===
-										"false"
-											? ""
-											: "false",
-								})
-							}
-						>
-							False
-						</div>
-					</div>
+					<Filter
+						filterItems={successfulLaunchFilters}
+						selectedFilters={successfulLaunchFilters.filter(
+							(item) =>
+								item.value === selectedFilters.successfulLaunch
+						)}
+						onChange={(selectedItem) =>
+							setSelectedFilters({
+								...selectedFilters,
+								successfulLaunch: selectedItem[0]
+									? selectedItem[0].value
+									: null,
+							})
+						}
+					/>
 
 					<div className="filter-title">Successful Landing</div>
-					<div className="filter-list">
-						<div
-							className={`filter-item ${
-								selectedFilters.successfulLand === "true"
-									? "active"
-									: ""
-							}`}
-							onClick={(e) =>
-								setSelectedFilters({
-									...selectedFilters,
-									successfulLand:
-										selectedFilters.successfulLand === "true"
-											? ""
-											: "true",
-								})
-							}
-						>
-							True
-						</div>
-						<div
-							className={`filter-item ${
-								selectedFilters.successfulLand === "false"
-									? "active"
-									: ""
-							}`}
-							onClick={(e) =>
-								setSelectedFilters({
-									...selectedFilters,
-									successfulLand:
-										selectedFilters.successfulLand === "false"
-											? ""
-											: "false",
-								})
-							}
-						>
-							False
-						</div>
-					</div>
-				</div>
-				{!launchPrograms.fetched ? (
-					<div className="loader-container">
-						<div className="primary loader"></div>
-					</div>
-				) : (
-					<div className="launch-program-list-container">
-						{launchPrograms.launchPrograms.length === 0 ? (
-							<div className="no-data">
-								No Launch Programs Found
-							</div>
-						) : (
-							launchPrograms.launchPrograms.map(
-								(launchProgramItem, index) => (
-									<div
-										className="launch-program-list-item"
-										key={`launch-program-list-item-${index}`}
-									>
-										<div className="program-image">
-											<img
-												src={
-													launchProgramItem.links
-														.mission_patch
-												}
-												alt={
-													launchProgramItem.mission_name
-												}
-											/>
-										</div>
-										<div className="program-content">
-											<div className="program-title">
-												{launchProgramItem.mission_name}{" "}
-												#
-												{
-													launchProgramItem.flight_number
-												}
-											</div>
-											<div className="program-data">
-												<div className="content-title">
-													Mission Ids
-												</div>
-												<ul className="content-data-list">
-													{launchProgramItem.mission_id.map(
-														(id, idx) => (
-															<li
-																className="content-value"
-																key={`miison-id-${index}-${idx}`}
-															>
-																{id}
-															</li>
-														)
-													)}
-												</ul>
-											</div>
-											<div className="program-data">
-												<div className="content-title">
-													Launch Year:
-												</div>
-												<div className="content-value">
-													{
-														launchProgramItem.launch_year
-													}
-												</div>
-											</div>
-											<div className="program-data">
-												<div className="content-title">
-													Successful Launch:
-												</div>
-												<div className="content-value">
-													{launchProgramItem.launch_success.toString()}
-												</div>
-											</div>
-											<div className="program-data">
-												<div className="content-title">
-													Successful Land:
-												</div>
-												<div className="content-value">
-													{launchProgramItem.launch_landing || "false"}
-												</div>
-											</div>
-										</div>
-									</div>
-								)
-							)
+					<Filter
+						filterItems={successfulLandFilters}
+						selectedFilters={successfulLandFilters.filter(
+							(item) =>
+								item.value === selectedFilters.successfulLand
 						)}
-					</div>
-				)}
+						onChange={(selectedItem) =>
+							setSelectedFilters({
+								...selectedFilters,
+								successfulLand: selectedItem[0]
+									? selectedItem[0].value
+									: null,
+							})
+						}
+					/>
+				</div>
+				<ProgramList
+					isLoading={!launchPrograms.fetched}
+					items={launchPrograms.launchPrograms}
+				/>
 			</div>
-			<div className="footer">
-				<span className="strong">Developed By: </span> Pratik Raj
-			</div>
-		</div>
+			<Footer />
+		</main>
 	);
 }

@@ -1,0 +1,17 @@
+.filter-list{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	.filter-item{
+		background-color: #c5e09b;
+		padding: 10px;
+		border-radius: 5px;
+		flex-basis: 48%;
+		margin: 5px 0;
+		text-align: center;
+		cursor: pointer;
+		&.active {
+			background-color: #7abc32;
+		}
+	}
+}

@@ -45,16 +45,6 @@ h3{
 .content{
 	padding: 0 10px;
 }
-.footer{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 20px;
-}
-.page-header{
-	padding: 0px 10px;
-	margin: 10px 0px;
-}
 .loader-container{
 	padding: 50px;
 	position: relative;
@@ -98,23 +88,6 @@ h3{
 	margin: 10px 0;
 	border-bottom: 1px solid #dddddd;
 }
-.filter-list{
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
-}
-.filter-item{
-	background-color: #c5e09b;
-	padding: 10px;
-	border-radius: 5px;
-	flex-basis: 48%;
-	margin: 5px 0;
-	text-align: center;
-	cursor: pointer;
-	&.active {
-		background-color: #7abc32;
-	}
-}
 .no-data{
 	font-size: 20px;
 	font-weight: 500;
@@ -122,40 +95,6 @@ h3{
 	width: 100%;
 	text-align: center;
 	padding: 20px;
-}
-.launch-program-list-container{
-	// margin: 10px 0px;;
-	.launch-program-list-item{
-		display: flex;
-		flex-direction: column;
-		background-color: #ffffff;
-		padding: 10px;
-		border-radius: 5px;
-		.program-image{
-			background-color: #f2f2f2;
-			img{
-				width: 100%;
-			}
-		}
-		.program-content{
-			margin: 10px 0px;
-			.program-title{
-				color: #575d9f;
-				font-weight: 600;
-			}
-			.program-data{
-				margin: 10px 0px;
-				display: flex;
-				.content-title{
-					font-weight: 600;
-					flex-basis: 50%;
-				}
-				.content-value{
-					color: #575d9f;
-				}
-			}
-		}
-	}
 }
 
 @media only all and (min-width: 700px) and (max-width: 1024px) {
@@ -165,37 +104,15 @@ h3{
 	.filters-container{
 		flex-basis: 24%;
 	}
-	.launch-program-list-container{
-		flex-basis: 74%;
-		display: flex;
-		gap: 10px;
-		flex-wrap: wrap;
-		align-items: flex-start;
-		.launch-program-list-item{
-			flex-basis: 49%;
-			margin-bottom: 10px;
-		}
-	}
   }
 }
 
-@media only all and (min-width: 1024px) and (max-width: 1440px) {
+@media only all and (min-width: 1024px) {
   .content {
 	display: flex;
 	justify-content: space-between;
 	.filters-container{
 		flex-basis: 24%;
-	}
-	.launch-program-list-container{
-		flex-basis: 74%;
-		display: flex;
-		gap: 10px;
-		flex-wrap: wrap;
-		align-items: flex-start;
-		.launch-program-list-item{
-			flex-basis: 24%;
-			margin-bottom: 10px;
-		}
 	}
   }
 }

@@ -1,0 +1,19 @@
+@media only all and (min-width: 700px) and (max-width: 1024px) {
+	.launch-program-list-container{
+		flex-basis: 74%;
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+		align-items: flex-start;
+	}
+}
+
+@media only all and (min-width: 1024px) {
+	.launch-program-list-container{
+		flex-basis: 74%;
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+		align-items: flex-start;
+	}
+}
